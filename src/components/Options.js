@@ -14,10 +14,10 @@ class Options extends Component {
  		return(
 			<View>
 				<TouchableOpacity onPress={this.props.testFun}>
-		    	
-		    </TouchableOpacity>
-		    <Text>{this.props.option.optionText} </Text>
-		  </View>
+		    		<Text>{this.props.option.optionText} </Text>
+			    </TouchableOpacity>
+			    
+			  </View>
 			)
 
  	}

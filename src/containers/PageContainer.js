@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Meteor , {createContainer} from 'react-native-meteor';
 import Page from '../components/Page';
 
-Meteor.connect('ws://192.168.1.87:3000/websocket');
+Meteor.connect('ws://192.168.1.83:3000/websocket');
 
 export default PageContainer = createContainer(props => {
 
