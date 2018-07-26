@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet,View,Text} from 'react-native';
 import Meteor, { MeteorComplexListView,ReactiveDict } from 'react-native-meteor';
 import Options from './Options';
-/*
-import CarFeaturedImageContainer from '../screens/containers/CarFeaturedImageContainer';
-import CarFeaturedImage from './CarFeaturedImage';
-*/
+import InitialPage from './InitialPage';
+
+
 class Page extends Component {
   constructor(props) {
     super(props);
@@ -90,27 +89,34 @@ class Page extends Component {
       )
     }
 
-    return (
-      <View style={styles.container}>
+    if(pageCode==='a1'){
+      return (
+        <InitialPage />
+        )
+    } else {
+      return (
+        <View style={styles.container}>
 
 
-        <MeteorComplexListView
-          enableEmptySections
-          elements={()=>{
-            return Meteor.collection('pages').find({pageCode}).map((page) => {
-              const pageOptions = Meteor.collection('options').find({pageCode: page.pageCode});
-             return {
-               ...page,
-               pageOptions
-             };
-            })
-          }}
-          renderRow={this.renderRow.bind(this)}
-        />
+          <MeteorComplexListView
+            enableEmptySections
+            elements={()=>{
+              return Meteor.collection('pages').find({pageCode}).map((page) => {
+                const pageOptions = Meteor.collection('options').find({pageCode: page.pageCode});
+               return {
+                 ...page,
+                 pageOptions
+               };
+              })
+            }}
+            renderRow={this.renderRow.bind(this)}
+          />
 
 
-      </View>
-    );
+        </View>
+      );
+    }
+    
   }
 
 }
