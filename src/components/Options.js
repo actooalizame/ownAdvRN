@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,View,Text,TouchableOpacity} from 'react-native';
+import { StyleSheet,View,Text,Button} from 'react-native';
 
 class Options extends Component {
   constructor(props) {
@@ -13,9 +13,14 @@ class Options extends Component {
  		//let link = this.props.option.link;
  		return(
 			<View>
-				<TouchableOpacity onPress={this.props.testFun}>
-		    		<Text>{this.props.option.optionText} </Text>
-			    </TouchableOpacity>
+				<Button 
+					onPress={
+						this.props.testFun
+					}
+					title = {String(this.props.option.optionText)}
+				
+				/>
+			    
 			    
 			  </View>
 			)

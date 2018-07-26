@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet,View,Text,Button} from 'react-native';
 import Meteor, { MeteorComplexListView,ReactiveDict } from 'react-native-meteor';
-import Options from './Options';
+import Options from '../components/Options';
 
-class Page extends Component {
+
+class NextScreen extends Component {
 
   constructor(props) {
     super(props);
     
-   	reactive = new ReactiveDict('reactive');
-     reactive.set("pageCode", "a1")
+   	let newScreen = reactive.get("pageCode")
+     reactive.set("pageCode", newScreen)
      const {navigation} = this.props;
      
+     
+     
   }
+  
 
 	renderRow(page) {
 
@@ -22,8 +26,8 @@ class Page extends Component {
 	  		let link = option.link;
 	  		
 	  		let testFun = function(){		  	
-          reactive.set("pageCode", link)
-          navigation.push('NextScreen')
+            reactive.set("pageCode", link)
+            navigation.push('NextScreen') 
 		  	};
 
 
@@ -31,26 +35,6 @@ class Page extends Component {
 	    });
     };
 
-    const geto = function(){
-      return page.pageOptions.map((option) =>{
-        
-        let link = option.link;
-        let text = option.optionText;
-
-        let testFun = function(){		  	
-		  		reactive.set("pageCode", link)
-		  	};
-        console.log(reactive.get("pageCode"));
-        
-        /*const optionsData = {
-          link: option.link,
-          text: option.optionText,
-          pageCode: option.pageCode
-        }*/
-
-	      //return <Options key={option._id} option={option} testFun={testFun}/>
-	    });
-    };
     
     const { navigation } = this.props;
      
@@ -79,13 +63,6 @@ class Page extends Component {
     //let {pageCode} = this.state;
     let pageCode = reactive.get("pageCode")
     
-    if (!pagesReady) {
-      return (
-        <View>
-          <Text>Loading...</Text>
-        </View>
-      )
-    }
 
     return (
       <View style={styles.container}>
@@ -112,7 +89,7 @@ class Page extends Component {
 
 }
 
-export default Page;
+export default NextScreen;
 
 const styles = StyleSheet.create({
   container: {
