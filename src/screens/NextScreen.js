@@ -57,7 +57,7 @@ class NextScreen extends Component {
     let reactivePageCode = reactive.get("pageCode");
   
     if(reactivePageCode!=="a1"){
-      this.props.navigation.push("StatsScreen",reactivePageCode)
+      this.props.navigation.push("StatsScreen")
       return true
     }
 

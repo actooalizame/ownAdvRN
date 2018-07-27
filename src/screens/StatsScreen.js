@@ -5,8 +5,6 @@ class StatsScreen extends Component {
  
  	render() {
  		 		
- 		let reactivePageCode = this.props.navigation.state.params;
- 		console.log(reactivePageCode)
  		return(
 			<View>
 				<Text>No podes volver el tiempo atras!</Text>
