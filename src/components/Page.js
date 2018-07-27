@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet,View,Text,Button} from 'react-native';
+import { StyleSheet,View,Text,Button,Alert} from 'react-native';
 import Meteor, { MeteorComplexListView,ReactiveDict } from 'react-native-meteor';
+import { AndroidBackHandler } from 'react-navigation-backhandler';
 import Options from './Options';
 
 class Page extends Component {
@@ -13,50 +14,22 @@ class Page extends Component {
      const {navigation} = this.props;
      
   }
-
 	renderRow(page) {
-
+    const { navigation } = this.props;
 	  const getOptions = function(){
 
 	  	return page.pageOptions.map((option) =>{
 	  		let link = option.link;
 	  		
 	  		let testFun = function(){		  	
-          reactive.set("pageCode", link)
-          navigation.push('NextScreen')
+          reactive.set("pageCode", link);
+          navigation.push('NextScreen');
 		  	};
-
-
 	      return <Options key={option._id} option={option} testFun={testFun}/>
 	    });
     };
-
-    const geto = function(){
-      return page.pageOptions.map((option) =>{
-        
-        let link = option.link;
-        let text = option.optionText;
-
-        let testFun = function(){		  	
-		  		reactive.set("pageCode", link)
-		  	};
-        console.log(reactive.get("pageCode"));
-        
-        /*const optionsData = {
-          link: option.link,
-          text: option.optionText,
-          pageCode: option.pageCode
-        }*/
-
-	      //return <Options key={option._id} option={option} testFun={testFun}/>
-	    });
-    };
-    
-    const { navigation } = this.props;
-     
-   
-    return (
-        
+       
+    return (      
           <View>
             <Text >{page.pageCode}</Text>
           
@@ -64,14 +37,31 @@ class Page extends Component {
             <View>
             	{getOptions()}
             </View>
-
-  
           </View>
-        
-        
-
     );
   }
+
+  onBackButtonPressAndroid = () => {
+    /*
+    *   Returning `true` from `onBackButtonPressAndroid` denotes that we have handled the event,
+    *   and react-navigation's lister will not get called, thus not popping the screen.
+    *
+    *   Returning `false` will cause the event to bubble up and react-navigation's listener will pop the screen.
+    * */
+
+    console.log("hola!");
+    Alert.alert(
+      'Alert Title',
+      'My Alert Msg',
+      [
+        {text: 'Ask me lateri', onPress: () => navigation.popToTop},
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'OK', onPress: () => console.log('OK Pressed')},
+      ],
+      { cancelable: false }
+    )
+
+  };
 
 
   render() {
@@ -88,25 +78,27 @@ class Page extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <AndroidBackHandler onBackPress={this.onBackButtonPressAndroid}>
+        <View style={styles.container}>
 
 
-        <MeteorComplexListView
-          enableEmptySections
-          elements={()=>{
-            return Meteor.collection('pages').find({pageCode}).map((page) => {
-              const pageOptions = Meteor.collection('options').find({pageCode: page.pageCode});
-             return {
-               ...page,
-               pageOptions
-             };
-            })
-          }}
-          renderRow={this.renderRow.bind(this)}
-        />
+          <MeteorComplexListView
+            enableEmptySections
+            elements={()=>{
+              return Meteor.collection('pages').find({pageCode}).map((page) => {
+                const pageOptions = Meteor.collection('options').find({pageCode: page.pageCode});
+               return {
+                 ...page,
+                 pageOptions
+               };
+              })
+            }}
+            renderRow={this.renderRow.bind(this)}
+          />
 
 
-      </View>
+        </View>
+      </AndroidBackHandler>
     );
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet,View,Text,Button} from 'react-native';
+import { StyleSheet,View,Text,Button,BackHandler,Alert } from 'react-native';
 import Meteor, { MeteorComplexListView,ReactiveDict } from 'react-native-meteor';
+import { AndroidBackHandler } from 'react-navigation-backhandler';
 import Options from '../components/Options';
 
 
@@ -10,11 +11,14 @@ class NextScreen extends Component {
     super(props);
     
    	let newScreen = reactive.get("pageCode")
-     reactive.set("pageCode", newScreen)
-     const {navigation} = this.props;     
+    reactive.set("pageCode", newScreen)
+    //const {navigation} = this.props;
   }
 
+
 	renderRow(page) {
+    const {navigation} = this.props;
+
 	  const getOptions = function(){
 	  	return page.pageOptions.map((option) =>{
 	  		let link = option.link;
@@ -41,27 +45,46 @@ class NextScreen extends Component {
     );
   }
 
+  onBackButtonPressAndroid = () => {
+    /*
+    *   Returning `true` from `onBackButtonPressAndroid` denotes that we have handled the event,
+    *   and react-navigation's lister will not get called, thus not popping the screen.
+    *
+    *   Returning `false` will cause the event to bubble up and react-navigation's listener will pop the screen.
+    * */
+
+    console.log("hola!");
+    let reactivePageCode = reactive.get("pageCode");
+  
+    if(reactivePageCode!=="a1"){
+      this.props.navigation.push("StatsScreen",reactivePageCode)
+      return true
+    }
+
+  };
 
   render() {
     const { pagesReady } = this.props;
     let pageCode = reactive.get("pageCode") 
 
     return (
+      <AndroidBackHandler onBackPress={this.onBackButtonPressAndroid}>
       <View style={styles.container}>
         <MeteorComplexListView
           enableEmptySections
           elements={()=>{
             return Meteor.collection('pages').find({pageCode}).map((page) => {
               const pageOptions = Meteor.collection('options').find({pageCode: page.pageCode});
-             return {
-               ...page,
-               pageOptions
-             };
+                return {
+                 ...page,
+                 pageOptions
+                };
             })
           }}
           renderRow={this.renderRow.bind(this)}
         />
       </View>
+      </AndroidBackHandler>
     );
   }
 
