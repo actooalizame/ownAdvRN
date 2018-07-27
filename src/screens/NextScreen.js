@@ -11,17 +11,11 @@ class NextScreen extends Component {
     
    	let newScreen = reactive.get("pageCode")
      reactive.set("pageCode", newScreen)
-     const {navigation} = this.props;
-     
-     
-     
+     const {navigation} = this.props;     
   }
-  
 
 	renderRow(page) {
-
 	  const getOptions = function(){
-
 	  	return page.pageOptions.map((option) =>{
 	  		let link = option.link;
 	  		
@@ -30,17 +24,12 @@ class NextScreen extends Component {
             navigation.push('NextScreen') 
 		  	};
 
-
 	      return <Options key={option._id} option={option} testFun={testFun}/>
 	    });
     };
 
-    
-    const { navigation } = this.props;
      
-   
     return (
-        
           <View>
             <Text >{page.pageCode}</Text>
           
@@ -48,26 +37,17 @@ class NextScreen extends Component {
             <View>
             	{getOptions()}
             </View>
-
-  
           </View>
-        
-        
-
     );
   }
 
 
   render() {
     const { pagesReady } = this.props;
-    //let {pageCode} = this.state;
-    let pageCode = reactive.get("pageCode")
-    
+    let pageCode = reactive.get("pageCode") 
 
     return (
       <View style={styles.container}>
-
-
         <MeteorComplexListView
           enableEmptySections
           elements={()=>{
@@ -81,8 +61,6 @@ class NextScreen extends Component {
           }}
           renderRow={this.renderRow.bind(this)}
         />
-
-
       </View>
     );
   }
