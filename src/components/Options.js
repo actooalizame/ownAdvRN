@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet,View,Text,Button} from 'react-native';
+import {StyleSheet,View} from 'react-native';
+import { Button, Text } from 'native-base';
 
 class Options extends Component {
   constructor(props) {
     super(props);
-   	//this.testFun = this.testFun.bind(this);
 
   }
 
 
  	render() {
- 		//let link = this.props.option.link;
  		return(
-			<View>
-				<Button 
-					onPress={
-						this.props.testFun
-					}
-					title = {String(this.props.option.optionText)}
-				
-				/>
+			<View style={styles.optionBtn}>
+				<Button bordered danger onPress={this.props.testFun}>
+					<Text style={styles.optionText}>{String(this.props.option.optionText)}</Text>
+				</Button>
 			    
 			    
 			  </View>
@@ -30,3 +25,12 @@ class Options extends Component {
 }
 
 export default Options;
+
+const styles = StyleSheet.create({
+  optionText: {
+  	fontSize: 12
+  },
+  optionBtn: {
+  	marginTop: 18
+  }
+});

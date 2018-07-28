@@ -1,23 +1,28 @@
 import React from 'react';
 import { createStackNavigator } from 'react-navigation';
 import { ReactiveDict } from 'react-native-meteor';
+import { Container, Root } from 'native-base';
 
 import PageContainer from './src/containers/PageContainer';
-import DetailsScreen from './src/screens/DetailsScreen';
+import WelcomeScreen from './src/screens/WelcomeScreen';
 import NextScreen from './src/screens/NextScreen';
 import StatsScreen from './src/screens/StatsScreen';
 import Loading from './src/components/Loading';
 
 const RootStack = createStackNavigator({
-    Home: {
-        screen: PageContainer,
+    Welcome: {
+        screen: WelcomeScreen,
         navigationOptions: () => ({
             //title: `A`,
             header: null
           }),
     },
-    Detalles: {
-        screen: DetailsScreen
+    FirstPage: {
+        screen: PageContainer,
+        navigationOptions: () => ({
+            //title: `A`,
+            header: null
+          }),
     },
     StatsScreen: {
         screen: StatsScreen,
@@ -40,7 +45,7 @@ const RootStack = createStackNavigator({
             header: null
           }),
     },
-    initialRouteName: 'Home',
+    initialRouteName: 'Welcome',
 
 });
 
@@ -49,7 +54,11 @@ export default class App extends React.Component {
     render() {
       
       return (
-            <RootStack />
+            <Root>
+                <Container>
+                    <RootStack />
+                </Container>
+            </Root>
         ) 
     }
 }

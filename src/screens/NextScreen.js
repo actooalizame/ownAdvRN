@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet,View,Text,Button,BackHandler,Alert } from 'react-native';
+import { StyleSheet,View,Button,BackHandler } from 'react-native';
 import Meteor, { MeteorComplexListView,ReactiveDict } from 'react-native-meteor';
 import { AndroidBackHandler } from 'react-navigation-backhandler';
+import { Text, Content } from 'native-base';
+
 import Options from '../components/Options';
 
 
@@ -34,14 +36,21 @@ class NextScreen extends Component {
 
      
     return (
-          <View>
-            <Text >{page.pageCode}</Text>
-          
-            <Text>{page.pageText}</Text>
-            <View>
-            	{getOptions()}
+          <View style={styles.pageContainer}>    
+            <View style={styles.pageContent}>
+              <View>
+              <Text>
+              
+              {page.pageText}
+             
+              </Text>
+               </View>
             </View>
-          </View>
+            <View style={styles.btnContainer}>
+              {getOptions()}
+            </View>
+          
+          </View> 
     );
   }
 
@@ -53,7 +62,6 @@ class NextScreen extends Component {
     *   Returning `false` will cause the event to bubble up and react-navigation's listener will pop the screen.
     * */
 
-    console.log("hola!");
     let reactivePageCode = reactive.get("pageCode");
   
     if(reactivePageCode!=="a1"){
@@ -95,10 +103,31 @@ export default NextScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-    //backgroundColor: '#fff'
-  }
+  },
+  
+  pageContainer: {
+    //flex: 1,
+    margin:"3.3%",
+    flexDirection: 'column',
+   // height: (Dimensions.get('window').height),
+  },
+  pageContent: {
+    flex: 4,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    //marginBottom: 0
+  },
+  btnContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginTop: "8%"
+  },
 });
