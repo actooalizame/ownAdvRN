@@ -5,7 +5,6 @@ import { Button, Text } from 'native-base';
 class Options extends Component {
   constructor(props) {
     super(props);
-
   }
 
 

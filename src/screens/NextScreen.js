@@ -20,14 +20,17 @@ class NextScreen extends Component {
 
 	renderRow(page) {
     const {navigation} = this.props;
-
+    const deviceId = navigation.getParam('deviceId');
+    console.log(deviceId)
 	  const getOptions = function(){
 	  	return page.pageOptions.map((option) =>{
 	  		let link = option.link;
 	  		
 	  		let testFun = function(){		  	
             reactive.set("pageCode", link)
-            navigation.push('NextScreen') 
+            navigation.push('NextScreen',{
+            deviceId
+          }) 
 		  	};
 
 	      return <Options key={option._id} option={option} testFun={testFun}/>
@@ -36,7 +39,8 @@ class NextScreen extends Component {
 
      
     return (
-          <View style={styles.pageContainer}>    
+          <View style={styles.pageContainer}>
+
             <View style={styles.pageContent}>
               <View>
               <Text>

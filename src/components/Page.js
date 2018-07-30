@@ -12,20 +12,22 @@ class Page extends Component {
     super(props);
     
    	reactive = new ReactiveDict('reactive');
-     reactive.set("pageCode", "a1")
+     reactive.set("pageCode", "a1")     
      const {navigation} = this.props;
      
   }
 	renderRow(page) {
-    const { navigation } = this.props;
+    const { navigation, deviceId } = this.props;
 	  const getOptions = function(){
-
 	  	return page.pageOptions.map((option) =>{
 	  		let link = option.link;
 	  		
-	  		let testFun = function(){		  	
+	  		let testFun = function(){
+          
           reactive.set("pageCode", link);
-          navigation.push('NextScreen');
+          navigation.push('NextScreen',{
+            deviceId
+          });
 		  	};
 	      return <Options key={option._id} option={option} testFun={testFun}/>
 	    });
@@ -34,7 +36,6 @@ class Page extends Component {
     return ( 
           <View style={styles.pageContainer}>    
             <View style={styles.pageContent}>
-            
               <Text>{page.pageText}</Text>
             </View>
             <View style={styles.btnContainer}>
