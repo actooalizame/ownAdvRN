@@ -12,7 +12,11 @@ class Page extends Component {
     super(props);
     
    	reactive = new ReactiveDict('reactive');
-     reactive.set("pageCode", "a1")     
+    const pageCode = reactive.get("pageCode")
+    if(pageCode===undefined){
+      reactive.set("pageCode", "a1") 
+    }
+         
      const {navigation} = this.props;
      
   }

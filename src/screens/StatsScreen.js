@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import { StyleSheet,View,Dimensions } from 'react-native';
 import { Button, Text, Toast, H2 } from 'native-base';
+var DeviceInfo = require('react-native-device-info');
+import Meteor from 'react-native-meteor';
+
 
 class StatsScreen extends Component {
+
+	saveGame(deviceId,lastStep){
+		console.log(deviceId)
+		Meteor.call('insertNewSave',deviceId,lastStep);
+	}
  
  	render() {
  		const toastStyle = {fontSize: 18, marginLeft:(Dimensions.get('window').width/4)};
+ 		const deviceId = DeviceInfo.getUniqueID(),
+ 			  lastStep = reactive.get("pageCode");
+
  		return(
 			<View style={styles.container}>
 				<View style={styles.mainText}>
@@ -33,6 +44,11 @@ class StatsScreen extends Component {
 					}}>
 					<Text>Reiniciar</Text>
 					</Button>
+
+					<Button info onPress={() => this.saveGame(deviceId,lastStep)}>
+					<Text>Guardar Partida</Text>
+					</Button>
+
 
 					<Button primary onPress={() => {
 						this.props.navigation.navigate("Welcome")

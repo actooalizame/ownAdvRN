@@ -7,7 +7,8 @@ import PageContainer from './src/containers/PageContainer';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import NextScreen from './src/screens/NextScreen';
 import StatsScreen from './src/screens/StatsScreen';
-import Loading from './src/components/Loading';
+import LoadedScreenContainer from './src/containers/LoadedScreenContainer';
+import SavedGamesContainer from './src/containers/SavedGamesContainer';
 
 const RootStack = createStackNavigator({
     Welcome: {
@@ -38,8 +39,15 @@ const RootStack = createStackNavigator({
             header: null
           }),
     },
-    Loading: {
-        screen: Loading,
+    SavedGames: {
+        screen: SavedGamesContainer,
+        navigationOptions: () => ({
+            //title: `A`,
+            header: null
+          }),
+    },
+    LoadedScreen: {
+        screen: LoadedScreenContainer,
         navigationOptions: () => ({
             //title: `A`,
             header: null

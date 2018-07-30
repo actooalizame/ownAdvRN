@@ -7,7 +7,7 @@ import { Text, Content } from 'native-base';
 import Options from '../components/Options';
 
 
-class NextScreen extends Component {
+class LoadedScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -77,12 +77,11 @@ class NextScreen extends Component {
 
   render() {
     const { pagesReady } = this.props;
-    let pageCode = reactive.get("pageCode") 
-
+    //let pageCode = reactive.get("pageCode") 
+    const pageCode = this.props.navigation.getParam('pageCode');
     return (
       <AndroidBackHandler onBackPress={this.onBackButtonPressAndroid}>
       <View style={styles.container}>
-        
         <MeteorComplexListView
           enableEmptySections
           elements={()=>{
@@ -103,7 +102,7 @@ class NextScreen extends Component {
 
 }
 
-export default NextScreen;
+export default LoadedScreen;
 
 const styles = StyleSheet.create({
   container: {

@@ -26,6 +26,11 @@ class WelcomeScreen extends Component {
 					}}>
 						<Text>Comenzar!</Text>
 					</Button>
+					<Button info large onPress={() => {
+						this.props.navigation.push("SavedGames")
+					}}>
+						<Text>Ver Guardados</Text>
+					</Button>
 			    </View>
 			  </View>
 			)
@@ -41,7 +46,7 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	mainText: {
-		flex: 3,
+		flex: 2,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center'
