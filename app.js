@@ -14,42 +14,36 @@ const RootStack = createStackNavigator({
     Welcome: {
         screen: WelcomeScreen,
         navigationOptions: () => ({
-            //title: `A`,
             header: null
           }),
     },
     FirstPage: {
         screen: PageContainer,
         navigationOptions: () => ({
-            //title: `A`,
             header: null
           }),
     },
     StatsScreen: {
         screen: StatsScreen,
         navigationOptions: () => ({
-            //title: `A`,
             header: null
           }),
     },
     NextScreen: {
         screen: NextScreen,
         navigationOptions: () => ({
-            //title: `A`,
             header: null
           }),
     },
     SavedGames: {
         screen: SavedGamesContainer,
         navigationOptions: () => ({
-            //title: `A`,
             header: null
           }),
     },
     LoadedScreen: {
         screen: LoadedScreenContainer,
         navigationOptions: () => ({
-            //title: `A`,
             header: null
           }),
     },

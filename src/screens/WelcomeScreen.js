@@ -20,13 +20,13 @@ class WelcomeScreen extends Component {
 					<H1>Bienvenido a Mi App!</H1>
 				</View>
 				<View style={styles.btnContainer}>
-					<Button success large onPress={() => {
+					<Button success onPress={() => {
 						reactive.set("pageCode", "a1")
 						this.props.navigation.push("FirstPage")
 					}}>
 						<Text>Comenzar!</Text>
 					</Button>
-					<Button info large onPress={() => {
+					<Button info onPress={() => {
 						this.props.navigation.push("SavedGames")
 					}}>
 						<Text>Ver Guardados</Text>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	mainText: {
-		flex: 2,
+		flex: 3,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center'
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
 	btnContainer: {
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-evenly'
+		justifyContent: 'space-evenly',
+		//marginLeft: '25%'
 	}
 })
