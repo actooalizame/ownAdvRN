@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Container,Text, Content, List, ListItem, Body,Right,Title,Subtitle,Button } from 'native-base';
+import { Container,Text, List, ListItem, Body,Right,Button, H3} from 'native-base';
 import {StyleSheet,View} from 'react-native';
 import Meteor, { MeteorListView } from 'react-native-meteor';
 var DeviceInfo = require('react-native-device-info');
+import moment from 'moment';
 
 export default class savedGames extends Component {
 
@@ -10,7 +11,7 @@ export default class savedGames extends Component {
     super(props);
   }
 
-  loadGame(lastStep){
+  loadGame(lastStep,savedId){
     const {navigation} = this.props;
     const deviceId = DeviceInfo.getUniqueID();
     reactive.set("pageCode", lastStep)
@@ -18,21 +19,33 @@ export default class savedGames extends Component {
             deviceId,
             pageCode: lastStep
           });
+    Meteor.call('deleteSave',savedId);
     
   }
 
   renderRow(saveGame) {
-    const lastStep = saveGame.lastStep
+    const lastStep = saveGame.lastStep,
+          formattedDate = moment(saveGame.createdAt).format('DD/MM/YY HH:mm'),
+          savedId = saveGame._id;
     return (
       <List>
-        <ListItem onPress={() => this.loadGame(lastStep)}>
+        <ListItem onPress={() => 
+          this.loadGame(lastStep,savedId)
+        }>
           <Body>
             <View> 
-              <Text>{lastStep}</Text>
+              <Text>{formattedDate}</Text>
             </View>
           </Body>
           <Right>
-            <Text>{saveGame.deviceId}</Text>
+            
+            
+              <Text>
+                {lastStep}
+              </Text>
+           
+              
+            
           </Right>
         </ListItem>
       </List>
@@ -48,6 +61,7 @@ export default class savedGames extends Component {
         <Container>
         { savesReady ? 
           <View style={styles.container}>
+            <H3>Cargar una partida eliminara el checkpoint</H3>
 
             <View style={styles.container}>
               <MeteorListView
