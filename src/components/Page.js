@@ -59,16 +59,17 @@ class Page extends Component {
     * */
     let reactivePageCode = reactive.get("pageCode");
   
-    if(reactivePageCode==="a1"){
+    /*if(reactivePageCode==="a1"){
       this.props.navigation.push("StatsScreen")
       return true
-    }
+    }*/
+    this.props.navigation.push("StatsScreen")
+    return true
   };
 
 
   render() {
     const { pagesReady } = this.props;
-    //let {pageCode} = this.state;
     let pageCode = reactive.get("pageCode")
     
     if (!pagesReady) {

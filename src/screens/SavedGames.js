@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {StyleSheet,View,Dimensions} from 'react-native';
-import { Container,Text, List, ListItem, Body,Right,Button, H3,Toast} from 'native-base';
+import { Container,Text, List, ListItem, Body,Right,Button,Toast,Left,Icon} from 'native-base';
 import Meteor, { MeteorListView } from 'react-native-meteor';
 var DeviceInfo = require('react-native-device-info');
 import moment from 'moment';
@@ -27,9 +27,15 @@ export default class savedGames extends Component {
       //position: 'top',
       textStyle: toastStyle,
       type: 'success',
-      duration: 1200
+      duration: 1500
     })
 
+  }
+
+  displayIcon(){
+    return (
+      <Icon type="FontAwesome" name="check" style={{color:'green'}}/>
+      )
   }
 
   renderRow(saveGame) {
@@ -70,9 +76,35 @@ export default class savedGames extends Component {
         <Container>
         { savesReady ? 
           <View style={styles.container}>
-            <H3>Cargar una partida eliminara el checkpoint</H3>
-
-            <View style={styles.container}>
+            <List style={styles.instructions}>
+              <ListItem>
+               <Left>
+                  <Text>Puedes acumular hasta 3 partidas guardadas.</Text>
+                </Left>
+                <Right>
+                  {this.displayIcon()}
+                </Right>
+              </ListItem>
+              <ListItem>
+                <Left>
+                  <Text>Cargar una partida elimina el checkpoint.</Text>
+                </Left>
+                <Right>
+                  {this.displayIcon()}
+                </Right>
+              </ListItem>
+              
+              <ListItem>
+                <Left>
+                  <Text>Guardar más de 3 partidas eliminará la partida guardada más antigua.</Text>
+                </Left>
+                <Right>
+                  {this.displayIcon()}
+                </Right>
+              </ListItem>
+            </List>
+            <View style={styles.savedGames}>
+              <Text style={styles.savedTitle}>Partidas Guardadas</Text>
               <MeteorListView
                 enableEmptySections
                 collection="savedGames"
@@ -96,8 +128,18 @@ export default class savedGames extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: '#fff'
-
   },
+  instructions: {
+    flex: 1
+  },
+  savedGames: {
+    flex: 1,
+    //alignItems: 'center'
+  },
+  savedTitle: {
+    marginLeft:(Dimensions.get('window').width/4.7),
+    fontSize: 23,
+    marginBottom: "5%"
+  }
   
 });

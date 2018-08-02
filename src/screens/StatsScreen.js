@@ -1,30 +1,54 @@
 import React, { Component } from 'react';
 import { StyleSheet,View,Dimensions } from 'react-native';
 import { Button, Text, Toast, H2 } from 'native-base';
-var DeviceInfo = require('react-native-device-info');
 import Meteor from 'react-native-meteor';
 
 
 class StatsScreen extends Component {
 
 	saveGame(deviceId,lastStep){
-		const toastStyle = {fontSize: 18, marginLeft:(Dimensions.get('window').width/4)};
-		Meteor.call('insertNewSave',deviceId,lastStep);
-		this.props.navigation.push("NextScreen")
-		Toast.show({
-      text: 'Historia Guardada!',
-      //buttonText: 'Okasss',
-      //position: 'top',
-      textStyle: toastStyle,
-      //type: 'default',
-      duration: 1200
-    })
+		const { navigation,playerSaved,oldestSaved } = this.props;
+
+		const playerSavedLastSteps = playerSaved.map((save) =>{
+      return save.lastStep
+    });
+
+    if(playerSavedLastSteps.includes(lastStep)){
+    	Toast.show({
+	      text: 'Ya guardaste esta pagina!',
+	      textStyle: {fontSize: 18, marginLeft:(Dimensions.get('window').width/5)},
+	      type: 'danger',
+	      duration: 1200
+	    })
+    } else {
+    	if(playerSaved.length>=3){
+		    Meteor.call('deleteSavedGame',oldestSaved._id);
+		    Meteor.call('insertNewSave',deviceId,lastStep);
+				navigation.push("NextScreen")
+				Toast.show({
+		      text: 'Partida mas vieja borrada!',
+		      textStyle: {fontSize: 18, marginLeft:(Dimensions.get('window').width/5)},
+		      type: 'warning',
+		      duration: 1500
+		    });
+			} 
+			else {
+				Meteor.call('insertNewSave',deviceId,lastStep);
+				navigation.push("NextScreen")
+				Toast.show({
+		      text: 'Historia Guardada!',
+		      textStyle: {fontSize: 18, marginLeft:(Dimensions.get('window').width/4)},
+		      duration: 1200
+		    })
+			}
+    }
 	}
  
  	render() {
  		const toastStyle = {fontSize: 18, marginLeft:(Dimensions.get('window').width/4)};
- 		const deviceId = DeviceInfo.getUniqueID(),
- 			  lastStep = reactive.get("pageCode");
+ 		const {deviceId, playerSaved} = this.props,
+ 			  	lastStep = reactive.get("pageCode");
+
 
  		return(
 			<View style={styles.container}>
@@ -54,11 +78,14 @@ class StatsScreen extends Component {
 					<Text>Reiniciar</Text>
 					</Button>
 				</View>
+
+
+
 				<View style={styles.btnContainer}>
+					
 					<Button info onPress={() => this.saveGame(deviceId,lastStep)}>
 						<Text>Guardar Partida</Text>
 					</Button>
-
 
 					<Button primary onPress={() => {
 						this.props.navigation.navigate("Welcome")
