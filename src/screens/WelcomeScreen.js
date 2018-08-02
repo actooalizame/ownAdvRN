@@ -29,7 +29,7 @@ class WelcomeScreen extends Component {
 					<Button info onPress={() => {
 						this.props.navigation.push("SavedGames")
 					}}>
-						<Text>Ver Guardados</Text>
+						<Text>Cargar Partida</Text>
 					</Button>
 			    </View>
 			  </View>

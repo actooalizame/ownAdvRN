@@ -116,7 +116,7 @@ export default class savedGames extends Component {
             </View>
           </View>
           :
-          <Text>nada</Text>       
+          <Text>Espera...</Text>       
          }
 
         
