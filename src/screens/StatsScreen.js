@@ -8,8 +8,17 @@ import Meteor from 'react-native-meteor';
 class StatsScreen extends Component {
 
 	saveGame(deviceId,lastStep){
-		console.log(deviceId)
+		const toastStyle = {fontSize: 18, marginLeft:(Dimensions.get('window').width/4)};
 		Meteor.call('insertNewSave',deviceId,lastStep);
+		this.props.navigation.push("NextScreen")
+		Toast.show({
+      text: 'Historia Guardada!',
+      //buttonText: 'Okasss',
+      //position: 'top',
+      textStyle: toastStyle,
+      //type: 'default',
+      duration: 1200
+    })
 	}
  
  	render() {
@@ -33,27 +42,28 @@ class StatsScreen extends Component {
 						reactive.set("pageCode", "a1")
 						this.props.navigation.navigate("FirstPage")
 						Toast.show({
-			              text: 'Historia Reiniciada!',
-			              //buttonText: 'Okasss',
-			              //position: 'top',
-			              textStyle: toastStyle,
-			              type: 'success',
-			              duration: 900
-			            })
+              text: 'Historia Reiniciada!',
+              //buttonText: 'Okasss',
+              //position: 'top',
+              textStyle: toastStyle,
+              type: 'success',
+              duration: 1200
+            })
 
 					}}>
 					<Text>Reiniciar</Text>
 					</Button>
-
+				</View>
+				<View style={styles.btnContainer}>
 					<Button info onPress={() => this.saveGame(deviceId,lastStep)}>
-					<Text>Guardar Partida</Text>
+						<Text>Guardar Partida</Text>
 					</Button>
 
 
 					<Button primary onPress={() => {
 						this.props.navigation.navigate("Welcome")
 					}}>
-					<Text>Menu Principal</Text>
+						<Text>Menu Principal</Text>
 					</Button>
 			    </View>
 			  </View>
@@ -70,7 +80,7 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	mainText: {
-		flex: 2,
+		flex: 3,
 		flexDirection: 'row',
 		justifyContent: 'center',
 		alignItems: 'center'

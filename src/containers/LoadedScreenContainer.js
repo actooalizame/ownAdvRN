@@ -4,7 +4,7 @@ var DeviceInfo = require('react-native-device-info');
 
 import LoadedScreen from '../screens/LoadedScreen';
 
-Meteor.connect('ws://192.168.1.83:3000/websocket');
+//Meteor.connect('ws://192.168.1.83:3000/websocket');
 
 export default LoadedScreenContainer = createContainer(props => {
 	var id = DeviceInfo.getUniqueID();

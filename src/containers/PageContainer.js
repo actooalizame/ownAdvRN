@@ -4,7 +4,7 @@ var DeviceInfo = require('react-native-device-info');
 
 import Page from '../components/Page';
 
-Meteor.connect('ws://192.168.1.83:3000/websocket');
+//Meteor.connect('ws://192.168.1.83:3000/websocket');
 
 export default PageContainer = createContainer(props => {
 	var id = DeviceInfo.getUniqueID();

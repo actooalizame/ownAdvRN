@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Container,Text, List, ListItem, Body,Right,Button, H3} from 'native-base';
-import {StyleSheet,View} from 'react-native';
+import {StyleSheet,View,Dimensions} from 'react-native';
+import { Container,Text, List, ListItem, Body,Right,Button, H3,Toast} from 'native-base';
 import Meteor, { MeteorListView } from 'react-native-meteor';
 var DeviceInfo = require('react-native-device-info');
 import moment from 'moment';
@@ -12,15 +12,24 @@ export default class savedGames extends Component {
   }
 
   loadGame(lastStep,savedId){
-    const {navigation} = this.props;
-    const deviceId = DeviceInfo.getUniqueID();
+    const {navigation} = this.props,
+          deviceId = DeviceInfo.getUniqueID(),
+          toastStyle = {fontSize: 18, marginLeft:(Dimensions.get('window').width/4)};
     reactive.set("pageCode", lastStep)
     navigation.push('LoadedScreen',{
             deviceId,
             pageCode: lastStep
           });
-    Meteor.call('deleteSave',savedId);
-    
+    Meteor.call('deleteSavedGame',savedId);
+    Toast.show({
+      text: 'Pagina Cargada!',
+      //buttonText: 'Okasss',
+      //position: 'top',
+      textStyle: toastStyle,
+      type: 'success',
+      duration: 1200
+    })
+
   }
 
   renderRow(saveGame) {
