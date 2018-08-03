@@ -4,6 +4,7 @@ import { Container,Text, List, ListItem, Body,Right,Button,Toast,Left,Icon} from
 import Meteor, { MeteorListView } from 'react-native-meteor';
 var DeviceInfo = require('react-native-device-info');
 import moment from 'moment';
+import 'moment/locale/es'
 
 export default class savedGames extends Component {
 
@@ -29,7 +30,6 @@ export default class savedGames extends Component {
       type: 'success',
       duration: 1500
     })
-
   }
 
   displayIcon(){
@@ -40,7 +40,7 @@ export default class savedGames extends Component {
 
   renderRow(saveGame) {
     const lastStep = saveGame.lastStep,
-          formattedDate = moment(saveGame.createdAt).format('DD/MM/YY HH:mm'),
+          formattedDate = moment(saveGame.createdAt).locale('es').format('ll [a las] HH:mm'),
           savedId = saveGame._id;
     return (
       <List>
@@ -52,15 +52,10 @@ export default class savedGames extends Component {
               <Text>{formattedDate}</Text>
             </View>
           </Body>
-          <Right>
-            
-            
+          <Right>         
               <Text>
                 {lastStep}
               </Text>
-           
-              
-            
           </Right>
         </ListItem>
       </List>

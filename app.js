@@ -11,7 +11,7 @@ import StatsScreenContainer from './src/containers/StatsScreenContainer';
 import LoadedScreenContainer from './src/containers/LoadedScreenContainer';
 import SavedGamesContainer from './src/containers/SavedGamesContainer';
 
-Meteor.connect('ws://192.168.86.148:3000/websocket');
+Meteor.connect('ws://192.168.1.85:3000/websocket');
 
 const RootStack = createStackNavigator({
     Welcome: {
